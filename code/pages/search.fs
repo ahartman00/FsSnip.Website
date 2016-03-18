@@ -20,9 +20,9 @@ type Results =
 // Loading search results
 // -------------------------------------------------------------------------------------------------
 
-let getResults (query) =
+let getResults (query:string) =
   publicSnippets
-  |> Seq.filter (fun s -> [ s.Title ; s.Comment ] |> Seq.exists (fun x -> x.Contains(query)))
+  |> Seq.filter (fun s -> [ s.Title.ToLowerInvariant() ; s.Comment.ToLowerInvariant() ] |> Seq.exists (fun x -> x.Contains(query.ToLowerInvariant())))
 
 let showResults (query) = delay (fun () -> 
   let decodedQuery = FsSnip.Filters.urlDecode query
